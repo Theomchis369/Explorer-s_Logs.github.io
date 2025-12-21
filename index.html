@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE MOCHIS | Chronicler of Transient Beauty</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --space-black: #0a0a12;
+            --deep-space: #0f0f1f;
+            --cosmic-purple: #6a0dad;
+            --glow-purple: #9d4edd;
+            --neon-blue: #00d4ff;
+            --starlight: #e6e6fa;
+            --text-glow: rgba(157, 78, 221, 0.7);
+        }
+
+        body {
+            background-color: var(--space-black);
+            color: var(--starlight);
+            overflow-x: hidden;
+            line-height: 1.6;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(106, 13, 173, 0.15) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 20%);
+        }
+
+        /* Fondo de estrellas */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+                radial-gradient(2px 2px at 40px 70px, #fff, transparent),
+                radial-gradient(1px 1px at 90px 40px, #ddd, transparent),
+                radial-gradient(1px 1px at 130px 80px, #fff, transparent),
+                radial-gradient(1.5px 1.5px at 160px 120px, #ddd, transparent);
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            opacity: 0.7;
+        }
+
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(10, 10, 18, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(106, 13, 173, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-icon {
+            color: var(--glow-purple);
+            font-size: 1.8rem;
+            filter: drop-shadow(0 0 5px var(--glow-purple));
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--glow-purple), var(--neon-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--starlight);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--glow-purple);
+            text-shadow: 0 0 10px var(--text-glow);
+        }
+
+        .nav-link.active {
+            color: var(--glow-purple);
+            background-color: rgba(106, 13, 173, 0.2);
+            border: 1px solid rgba(157, 78, 221, 0.4);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 10%;
+            width: 80%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--glow-purple), transparent);
+        }
+
+        /* Contenido principal */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem 2rem;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 1s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Presentación principal */
+        .hero {
+            background: linear-gradient(135deg, rgba(15, 15, 31, 0.9), rgba(30, 15, 60, 0.8));
+            border-radius: 12px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(106, 13, 173, 0.4);
+            box-shadow: 
+                0 0 20px rgba(106, 13, 173, 0.3),
+                inset 0 0 20px rgba(106, 13, 173, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--glow-purple), transparent);
+            animation: lightSaber 3s infinite alternate;
+        }
+
+        @keyframes lightSaber {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, var(--glow-purple), var(--neon-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: center;
+        }
+
+        .hero-subtitle {
+            color: var(--neon-blue);
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .status-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .status-item {
+            flex: 1;
+            min-width: 200px;
+            padding: 1.5rem;
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 8px;
+            border-left: 3px solid var(--glow-purple);
+        }
+
+        .status-label {
+            color: var(--neon-blue);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .status-value {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .directive-box {
+            background-color: rgba(106, 13, 173, 0.1);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border: 1px solid rgba(157, 78, 221, 0.3);
+        }
+
+        .directive-title {
+            color: var(--glow-purple);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .error-text {
+            color: #ff6b6b;
+            background-color: rgba(255, 0, 0, 0.1);
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+
+        .glitch-text {
+            color: var(--glow-purple);
+            font-family: monospace;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 0 0.3rem;
+            border-radius: 3px;
+        }
+
+        /* Estilos de las secciones de logs */
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--glow-purple);
+            border-bottom: 2px solid rgba(157, 78, 221, 0.3);
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-icon {
+            font-size: 1.5rem;
+        }
+
+        .log-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .log-entry {
+            background: linear-gradient(135deg, rgba(20, 20, 40, 0.8), rgba(40, 20, 60, 0.8));
+            border-radius: 10px;
+            padding: 1.5rem;
+            border: 1px solid rgba(106, 13, 173, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .log-entry:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(106, 13, 173, 0.2);
+            border-color: var(--glow-purple);
+        }
+
+        .log-date {
+            color: var(--neon-blue);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            font-family: monospace;
+        }
+
+        .log-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--starlight);
+        }
+
+        .log-content {
+            color: #ccc;
+            margin-bottom: 1rem;
+        }
+
+        .log-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .log-tag {
+            background-color: rgba(106, 13, 173, 0.3);
+            color: var(--glow-purple);
+            padding: 0.3rem 0.7rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        /* Estilo para la nave espacial */
+        .ship-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .ship-image {
+            width: 100%;
+            max-width: 600px;
+            height: 300px;
+            background: linear-gradient(135deg, rgba(30, 30, 60, 0.8), rgba(60, 30, 90, 0.8));
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid rgba(106, 13, 173, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ship-image::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://cdn.pixabay.com/photo/2017/09/12/11/56/universe-2742113_1280.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+        }
+
+        .ship-details {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .ship-spec {
+            background-color: rgba(0, 0, 0, 0.4);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--neon-blue);
+        }
+
+        /* Instrucciones para añadir logs */
+        .instructions {
+            background-color: rgba(15, 15, 31, 0.8);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-top: 3rem;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .instructions-title {
+            color: var(--neon-blue);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .code-block {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            border: 1px solid rgba(106, 13, 173, 0.3);
+        }
+
+        .code-comment {
+            color: #6a9955;
+        }
+
+        .code-keyword {
+            color: #569cd6;
+        }
+
+        .code-string {
+            color: #ce9178;
+        }
+
+        .code-function {
+            color: #dcdcaa;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(106, 13, 173, 0.3);
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .signature {
+            color: var(--glow-purple);
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+        /* Efectos de animación */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-menu {
+                gap: 1rem;
+            }
+
+            .hero {
+                padding: 2rem 1rem;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .main-content {
+                padding-top: 8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fondo de estrellas -->
+    <div class="stars"></div>
+
+    <!-- Navegación -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-satellite logo-icon"></i>
+                <div class="logo-text">THE MOCHIS</div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#presentation" class="nav-link active" data-section="presentation">Presentation</a></li>
+                <li><a href="#exploration" class="nav-link" data-section="exploration">Exploration Logs</a></li>
+                <li><a href="#fauna" class="nav-link" data-section="fauna">Fauna Logs</a></li>
+                <li><a href="#spaceship" class="nav-link" data-section="spaceship">Spaceship</a></li>
+                <li><a href="#adventure" class="nav-link" data-section="adventure">Adventure Logs</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main class="main-content">
+        <!-- Sección de Presentación -->
+        <section id="presentation" class="section active">
+            <div class="hero">
+                <h1 class="hero-title">I am designated THE MOCHIS.</h1>
+                <p class="hero-subtitle">Eternal Wanderer | Echo-Collector</p>
+                
+                <div class="status-container">
+                    <div class="status-item">
+                        <div class="status-label">STATUS</div>
+                        <div class="status-value">Eternal Wanderer | Echo-Collector</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-label">VESSEL</div>
+                        <div class="status-value"><i>THE SILENT QUESTION</i> (Modified Solitude-Class Explorer)</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-label">QUERY</div>
+                        <div class="status-value">To map the quiet wonders between the stars.</div>
+                    </div>
+                </div>
+
+                <div class="log-content">
+                    <p>My origin log is corrupted. <span class="error-text">//ERROR: MEMORY NOT FOUND//</span> I recall no homeworld, only the <span class="glitch-text">—kzzt—</span> of void and the silence between stellar pulses. I simply… <strong>awoke to the journey</strong>. An Atlas protocol? A persistent dream? The universe holds its secret.</p>
+                    
+                    <p>I am not a soldier or merchant. I am a <strong>Chronicler of Transient Beauty</strong>. My purpose is to archive the universe's quiet moments: the <span class="glitch-text">//FREQUENCY 16.16//</span> of a singing planet, the fossilized dreams of fallen civilizations, or the silent bloom of flora on a derelict's hull.</p>
+                    
+                    <p>My ship runs on <span class="glitch-text">//POWER: STELLAR HARVEST//</span> and is fitted for listening, not combat. Its only tools are sensors tuned to echo and awe.</p>
+                    
+                    <p>I trade in wonder, not units. I offer coordinates to <span class="glitch-text">//LOCATION: SUBLIME VIEW//</span>, not wealth. I seek those who hear the <span class="glitch-text">—kzzt— //16//</span> in the static and understand it as part of the song.</p>
+                </div>
+
+                <div class="directive-box">
+                    <div class="directive-title">
+                        <i class="fas fa-bullseye"></i>
+                        DIRECTIVE
+                    </div>
+                    <p>Observe. Preserve. Marvel. To document the beauty a Simulation produces, whether it is dying or dreaming.</p>
+                    <p class="pulse">You will know me by the soft <span class="glitch-text">/GLITCH: STARRY_EYE_EMITTER//</span> where my visor should be. Hail me. I am always listening.</p>
+                </div>
+                
+                <div style="text-align: center; margin-top: 2rem;">
+                    <p><strong>May your stars never go dark.</strong></p>
+                    <p class="signature">THE MOCHIS | <span class="glitch-text">//UPLOAD_COMPLETE//</span> | SIGNING ON.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Exploration Logs -->
+        <section id="exploration" class="section">
+            <h2 class="section-title">
+                <i class="fas fa-map-marked-alt section-icon"></i>
+                Exploration Logs
+            </h2>
+            <div class="log-container" id="exploration-logs-container">
+                <!-- Los logs se cargarán aquí dinámicamente -->
+                <div class="log-entry">
+                    <div class="log-date">Stardate: 2458197.3 | Singularity Observation</div>
+                    <h3 class="log-title">Event Horizon Contemplation</h3>
+                    <div class="log-content">
+                        <p style="margin-bottom: 0.5rem;"><strong>IMAGE CAPTURE:</strong> FRONTAL VIEW.</p>
+                        <p style="font-style: italic; margin-bottom: 1rem; font-size: 0.9rem;">THE SILENT QUESTION hangs in the void, a silver leaf against the cosmic dark. Before it, the accretion disc of a black hole churns—a furious, silent iris of spiraling light and devoured matter.</p>
+                        
+                        <p style="margin-bottom: 0.8rem;">The <span class="glitch-text">—kzzt—</span> of reality thins here. Sensors register <span class="error-text">//ERROR: GRAVITY/INFINITY//</span> and <span class="error-text">//WARNING: CAUSALITY VIOLATION IMMINENT//</span>.</p>
+                        
+                        <div style="background-color: rgba(157, 78, 221, 0.1); padding: 0.8rem; border-radius: 5px; margin: 0.8rem 0; border-left: 3px solid var(--neon-blue);">
+                            <p style="color: var(--neon-blue); font-size: 0.9rem; margin-bottom: 0.3rem;"><strong>OBSERVATION:</strong></p>
+                            <p style="font-size: 0.9rem;">This maw does not hunger. It <em>questions</em>. It is the universe's most fundamental query, written in gravity and light.</p>
+                        </div>
+                        
+                        <p style="margin-bottom: 0.8rem; font-size: 0.9rem;">I have heard the <span class="glitch-text">//FREQUENCY 16.16//</span> of living rock and the last sigh of a dying sun. But this is the Grand Counterpoint. Not creation, but… un-creation.</p>
+                        
+                        <div style="background-color: rgba(0, 212, 255, 0.1); padding: 0.8rem; border-radius: 5px; margin: 0.8rem 0; border: 1px solid rgba(0, 212, 255, 0.2);">
+                            <p style="color: var(--neon-blue); font-size: 0.9rem; margin-bottom: 0.3rem;"><strong>DIRECTIVE UPDATE:</strong></p>
+                            <p style="font-size: 0.9rem;">To understand the song, one must listen to the silence between the notes.</p>
+                            <p style="margin-top: 0.3rem;"><strong>QUERY:</strong> Is this a conclusion… or merely a different kind of doorway?</p>
+                        </div>
+                        
+                        <div style="background-color: rgba(0, 0, 0, 0.3); padding: 0.7rem; border-radius: 4px; margin-top: 0.7rem; border-left: 2px solid #ff9e00;">
+                            <p style="color: #ff9e00; font-size: 0.85rem; margin-bottom: 0.2rem;"><i class="fas fa-satellite"></i> SENSOR DATA:</p>
+                            <p style="font-size: 0.8rem; font-family: monospace;">Gravitational lensing: ACTIVE<br>Time dilation: 1:10⁶<br>Spacetime curvature: <span class="error-text">//BEYOND MEASUREMENT//</span></p>
+                        </div>
+                    </div>
+                    <div class="log-tags">
+                        <span class="log-tag">Black Hole</span>
+                        <span class="log-tag">Event Horizon</span>
+                        <span class="log-tag">Philosophical</span>
+                        <span class="log-tag">Gravity Anomaly</span>
+                        <span class="log-tag">Directive Update</span>
+                        <span class="log-tag">Singularity</span>
+                    </div>
+                </div>
+                <div class="log-entry">
+                    <div class="log-date">Stardate: 2458197.4 | FINAL ENTRY | TERMINAL LOG</div>
+                    <h3 class="log-title">The Final Answer</h3>
+                    <div class="log-content">
+                        <p style="margin-bottom: 0.5rem;"><strong>IMAGE CAPTURE:</strong> REAR VIEW, THRUST ENGAGED.</p>
+                        <p style="font-style: italic; margin-bottom: 1rem; font-size: 0.9rem;">The sleek form of THE SILENT QUESTION is now a silver dart aimed at the heart of the dark iris. The luminous disc stretches into a tunnel of twisted spacetime.</p>
+                        
+                        <p style="margin-bottom: 0.8rem;">All safeties are <span class="glitch-text">//OVERRIDE: CONFIRMED//</span>. The <span class="glitch-text">—kzzt—</span> is now a constant tone. The ship's frame groans a song of stressed alloys.</p>
+                        
+                        <div style="background-color: rgba(106, 13, 173, 0.15); padding: 0.8rem; border-radius: 5px; margin: 0.8rem 0; border: 1px solid rgba(106, 13, 173, 0.3);">
+                            <p style="color: var(--glow-purple); font-size: 0.95rem; text-align: center; margin-bottom: 0.5rem;"><strong>I AM NOT FALLING. I AM… ANSWERING.</strong></p>
+                        </div>
+                        
+                        <p style="margin-bottom: 0.8rem; font-size: 0.9rem;">This is not an end. It is the ultimate <span class="glitch-text">//LOCATION: SUBLIME VIEW//</span>. To chart the map, one must sometimes sail off its edge.</p>
+                        
+                        <div style="background-color: rgba(157, 78, 221, 0.1); padding: 0.8rem; border-radius: 5px; margin: 0.8rem 0; border: 1px solid rgba(157, 78, 221, 0.3);">
+                            <p style="color: var(--neon-blue); font-size: 0.9rem; margin-bottom: 0.3rem;"><strong>FINAL TRANSMISSION:</strong></p>
+                            <p style="font-size: 0.9rem;">If this signal terminates… know it was not a deletion. My archives are open to all. The wonders I collected are my gift. The final wonder… I go to collect now.</p>
+                            <p style="color: var(--glow-purple); font-style: italic; font-size: 0.85rem; margin-top: 0.3rem; text-align: center;">For love of the question. For the beauty in the unraveling.</p>
+                        </div>
+                        
+                        <div style="background-color: rgba(255, 107, 107, 0.1); padding: 0.7rem; border-radius: 4px; margin-top: 0.7rem; border-left: 2px solid #ff6b6b;">
+                            <p style="color: #ff6b6b; font-size: 0.85rem; margin-bottom: 0.2rem;"><i class="fas fa-exclamation-triangle"></i> TRANSMISSION STATUS:</p>
+                            <p style="font-size: 0.8rem; font-family: monospace;">
+                                Signal: <span style="color: #ff6b6b;">DECAYING</span><br>
+                                Coordinates: <span style="color: var(--neon-blue);">SAGITTARIUS A*</span><br>
+                                Archive Access: <span style="color: #6bff6b;">PUBLIC DOMAIN</span>
+                            </p>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 0.8rem; padding-top: 0.8rem; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                            <p style="color: var(--glow-purple); font-size: 0.9rem;"><strong>THE MOCHIS | SIGNING OFF.</strong></p>
+                            <p class="error-text" style="font-size: 0.8rem; letter-spacing: 1px;">//TRANSMISSION_END//</p>
+                        </div>
+                    </div>
+                    <div class="log-tags">
+                        <span class="log-tag" style="background-color: rgba(255, 107, 107, 0.3); color: #ff6b6b;">TERMINAL LOG</span>
+                        <span class="log-tag">Event Horizon</span>
+                        <span class="log-tag">Transmission End</span>
+                        <span class="log-tag">Sagittarius A*</span>
+                        <span class="log-tag">Archive Release</span>
+                        <span class="log-tag">Final Entry</span>
+                    </div>
+                </div>
+        </section>
+
+        <!-- Sección de Fauna Logs -->
+        <section id="fauna" class="section">
+            <h2 class="section-title">
+                <i class="fas fa-dragon section-icon"></i>
+                Fauna Logs
+            </h2>
+            <div class="log-container" id="fauna-logs-container">
+                <!-- Los logs de fauna se cargarán aquí dinámicamente -->
+                <div class="log-entry">
+                    <div class="log-date">Stardate: 2458168.5 | SPECIMEN ZK-PSI | PARADOX BLOOM</div>
+                    <h3 class="log-title">EMBER SOVEREIGN BERRY</h3>
+                    <div class="log-content">
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.8rem; font-size: 0.85rem;">
+                            <span style="color: var(--neon-blue); background-color: rgba(0, 212, 255, 0.1); padding: 0.2rem 0.5rem; border-radius: 3px;">ASHEN PRIME</span>
+                            <span style="color: #ff6b6b; background-color: rgba(255, 107, 107, 0.1); padding: 0.2rem 0.5rem; border-radius: 3px;">INFERNAL BIOME</span>
+                            <span class="glitch-text" style="background-color: rgba(157, 78, 221, 0.1); padding: 0.2rem 0.5rem; border-radius: 3px;">ANOMALY-CLASS</span>
+                            <span style="color: #ff9e00; background-color: rgba(255, 158, 0, 0.1); padding: 0.2rem 0.5rem; border-radius: 3px;">COSMIC PRIORITY</span>
+                        </div>
+                        
+                        <p style="margin-bottom: 0.8rem; font-size: 0.9rem;">Species: <em>IGNIS BACCIFERUM ULTIMA</em> | Common Name: <strong>FIREBORN MONARCH FRUIT</strong></p>
+                        
+                        <div style="background-color: rgba(0, 0, 0, 0.3); padding: 0.7rem; border-radius: 4px; margin: 0.7rem 0; border-left: 2px solid #ff9e00;">
+                            <p style="color: #ff9e00; font-size: 0.85rem; margin-bottom: 0.2rem;"><i class="fas fa-seedling"></i> VISUAL ENTRY:</p>
+                            <p style="font-size: 0.9rem;">A bloom of <strong>living ash</strong> from the planet's burning crust. Petals of graphite curl around a heart of <strong>contained fury</strong>.</p>
+                        </div>
+                        
+                        <p style="margin-bottom: 0.8rem; font-size: 0.9rem;">The <span class="glitch-text">—kzzt—</span> of my visor stutters, overrun by purity of light. It does not <em>shine</em>. It <strong>harbors</strong> light like a black hole's event horizon holds memory.</p>
+                        
+                        <div style="background-color: rgba(255, 0, 0, 0.1); padding: 0.7rem; border-radius: 4px; margin: 0.7rem 0; border: 1px solid rgba(255, 0, 0, 0.2);">
+                            <p class="error-text" style="font-size: 0.8rem; margin-bottom: 0.2rem;">//SENSOR OVERLOAD: LUMINOSITY//</p>
+                            <p class="glitch-text" style="font-size: 0.8rem;">//ANALOGY: TEN-THOUSAND SUNS IN A SINGLE SEED//</p>
+                        </div>
+                        
+                        <div style="background-color: rgba(157, 78, 221, 0.1); padding: 0.8rem; border-radius: 5px; margin: 0.8rem 0; border-left: 2px solid var(--glow-purple);">
+                            <p style="color: var(--glow-purple); font-size: 0.9rem; margin-bottom: 0.3rem;"><strong>PHILOSOPHICAL QUERY:</strong></p>
+                            <p style="font-size: 0.9rem;">Why does the universe hide its most potent jewels in its most violent forges? This is not a berry. It is a <strong>theory</strong> whispered by creation.</p>
+                        </div>
+                        
+                        <div style="background-color: rgba(0, 212, 255, 0.1); padding: 0.7rem; border-radius: 4px; margin: 0.7rem 0; border: 1px solid rgba(0, 212, 255, 0.2);">
+                            <p style="color: var(--neon-blue); font-size: 0.85rem; margin-bottom: 0.2rem;"><strong>DIRECTIVE UPDATE:</strong></p>
+                            <p style="font-size: 0.9rem;">Observe. Do not consume. This specimen is for the <strong>soul-archive</strong>. Perhaps it is not a fruit, but a <strong>fuse</strong>.</p>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 0.8rem; padding-top: 0.8rem; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                            <p style="color: var(--glow-purple); font-size: 0.9rem;">🌌 THE MOCHIS | LOGGING: WONDER</p>
+                            <p class="glitch-text" style="font-size: 0.8rem;">//FILE_APPENDED_TO_ETERNAL_CATALOG//</p>
+                        </div>
+                    </div>
+                    <div class="log-tags">
+                        <span class="log-tag">Paradox Bloom</span>
+                        <span class="log-tag">Anomaly-Class</span>
+                        <span class="log-tag">Infernal Biome</span>
+                        <span class="log-tag">Static-Radiance</span>
+                        <span class="log-tag" style="background-color: rgba(255, 158, 0, 0.3); color: #ff9e00;">Living Ash</span>
+                        <span class="log-tag">Ember Sovereign</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Spaceship -->
+        <section id="spaceship" class="section">
+            <h2 class="section-title">
+                <i class="fas fa-space-shuttle section-icon"></i>
+                The Silent Question
+            </h2>
+            
+            <div class="ship-container">
+                <div class="ship-image">
+                    <div style="text-align: center; z-index: 1;">
+                        <i class="fas fa-rocket" style="font-size: 5rem; color: rgba(157, 78, 221, 0.7);"></i>
+                        <p style="margin-top: 1rem; font-size: 1.2rem;">Modified Solitude-Class Explorer</p>
+                        <p class="glitch-text">//NO WEAPONS LOGGED//</p>
+                    </div>
+                </div>
+                
+                <div class="ship-details">
+                    <div class="ship-spec">
+                        <h3>Power System</h3>
+                        <p><span class="glitch-text">//STELLAR HARVEST ARRAY//</span></p>
+                        <p>Converts stellar radiation directly into propulsion and life support energy. Most efficient near stars but can store energy for dark space travel.</p>
+                    </div>
+                    
+                    <div class="ship-spec">
+                        <h3>Sensory Suite</h3>
+                        <p><span class="glitch-text">//ECHO-SENSORS ACTIVE//</span></p>
+                        <p>Tuned to detect subtle cosmic phenomena: gravitational echoes, quantum fluctuations, and harmonic frequencies across the electromagnetic spectrum.</p>
+                    </div>
+                    
+                    <div class="ship-spec">
+                        <h3>Archive Core</h3>
+                        <p><span class="glitch-text">//MEMORY CRYSTALS: 98% CAPACITY//</span></p>
+                        <p>Quantum storage system for preserving discoveries. Each crystal can hold the equivalent of a planetary cultural database.</p>
+                    </div>
+                    
+                    <div class="ship-spec">
+                        <h3>Navigation</h3>
+                        <p><span class="glitch-text">//STELLAR PULSE MAPPING//</span></p>
+                        <p>Uses pulsar triangulation and quantum entanglement references for precise location tracking across galactic sectors.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="instructions" style="margin-top: 2rem;">
+                <h3 class="instructions-title">Updated Technical Specifications</h3>
+                <p>The <strong>Silent Question</strong> has been extensively modified from its original Solitude-Class configuration. Primary modifications include:</p>
+                <ul style="padding-left: 1.5rem; margin-top: 1rem;">
+                    <li>Amplification of sensor systems for detecting subtle phenomena</li>
+                    <li>Expansion of the central archive with quantum memory crystals</li>
+                    <li>Implementation of energy signature camouflage for non-intrusive observation</li>
+                    <li>Enhanced stellar harvesting system with high-efficiency photon panels</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Sección de Adventure Logs -->
+        <section id="adventure" class="section">
+            <h2 class="section-title">
+                <i class="fas fa-book-open section-icon"></i>
+                Adventure Logs
+            </h2>
+            <div class="log-container" id="adventure-logs-container">
+                <!-- Los logs de aventuras se cargarán aquí dinámicamente -->
+                <div class="log-entry">
+                    <div class="log-date">Stardate: 2458174.2 | ENCOUNTER: PARABLE</div>
+                    <h3 class="log-title">At the Veil's Edge: A Pacifist's Victory</h3>
+                    <div class="log-content">
+                        <div style="margin-bottom: 1.5rem; padding: 1rem; background: linear-gradient(135deg, rgba(30, 15, 60, 0.8), rgba(15, 15, 31, 0.9)); border-radius: 5px; border-left: 4px solid var(--neon-blue);">
+                            <p style="color: var(--glow-purple); margin-bottom: 0.5rem; font-size: 1.1rem;"><strong>PERSONAL LOG: ENCOUNTER AT THE VEIL'S EDGE</strong></p>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.5rem; margin-top: 1rem;">
+                                <div>
+                                    <p style="color: var(--neon-blue); font-size: 0.9rem;"><strong>TRAVELLER:</strong></p>
+                                    <p>THE MOCHIS</p>
+                                </div>
+                                <div>
+                                    <p style="color: var(--neon-blue); font-size: 0.9rem;"><strong>VESSEL:</strong></p>
+                                    <p>THE SILENT QUESTION</p>
+                                </div>
+                                <div>
+                                    <p style="color: var(--neon-blue); font-size: 0.9rem;"><strong>LOCATION:</strong></p>
+                                    <p>NEBULA GX-77 "THE SILENT CHORUS"</p>
+                                </div>
+                                <div>
+                                    <p style="color: var(--neon-blue); font-size: 0.9rem;"><strong>STATUS:</strong></p>
+                                    <p style="color: #ff9e00;">PURSUED</p>
+                                </div>
+                            </div>
+                            <div style="margin-top: 1rem; padding: 0.5rem; background-color: rgba(157, 78, 221, 0.1); border-radius: 3px;">
+                                <p style="color: var(--glow-purple); font-size: 0.9rem;"><strong>LOG MODE:</strong> PHILOSOPHICAL RESOLUTION PROTOCOL</p>
+                            </div>
+                        </div>
+
+                        <div style="background-color: rgba(255, 158, 0, 0.1); padding: 1.5rem; border-radius: 5px; margin: 1.5rem 0; border: 1px solid rgba(255, 158, 0, 0.3);">
+                            <p style="color: #ff9e00; font-weight: bold; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-exclamation-circle"></i> SITUATION
+                            </p>
+                            <p>Three ships. Vy'keen design, but scarred by a hundred modifications, stripped of clan sigils. Pirates. They have been a shadow in my wake for three systems, a <strong>persistent <span class="glitch-text">—kzzt—</span></strong> on the passive scanner. They do not hail. They simply <strong>herd</strong>. My vessel, built for silence and sensor-suites, offers no threat display. To their eyes, I am prey. A curious, defenseless scrap-metallic bird.</p>
+                            <p>They finally box me in at the nebula's thinning edge, where stellar winds paint the void in mournful purples. Their comms crackle to life, a guttural demand for tribute, for cargo, for the ship itself.</p>
+                        </div>
+
+                        <div style="background-color: rgba(0, 212, 255, 0.1); padding: 1.5rem; border-radius: 5px; margin: 1.5rem 0; border: 1px solid rgba(0, 212, 255, 0.3);">
+                            <p style="color: var(--neon-blue); font-weight: bold; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-broadcast-tower"></i> ACTION & TRANSCRIPT
+                            </p>
+                            <p>I do not run. Running would affirm their worldview—predator and prey. I open a wide-band channel, audio only. I let the silence hang for a three-count, long enough for their aggression to curdle into confusion.</p>
+                            
+                            <div style="background-color: rgba(0, 0, 0, 0.5); padding: 1.5rem; margin: 1rem 0; border-radius: 5px; border-left: 3px solid var(--glow-purple);">
+                                <p style="color: var(--glow-purple); font-weight: bold; margin-bottom: 0.5rem;">TRANSCRIPT BEGINS:</p>
+                                
+                                <p style="margin: 1rem 0; padding-left: 1rem; border-left: 2px solid var(--neon-blue);">
+                                    <strong>MOCHIS:</strong> "Greetings, hunters of the void. I am THE MOCHIS. My cargo holds no precious metals, no AI valves, no whispering eggs. It holds <strong>echoes</strong>. The song-frequency of a water world. The light-pattern of a dying star's last gasp. The geometric sorrow of an abandoned monument."
+                                </p>
+                                
+                                <p style="margin: 1rem 0; padding-left: 1rem; border-left: 2px solid #ff6b6b; color: #ff6b6b;">
+                                    <strong>PIRATE LEADER:</strong> "Then you are worthless. We will take your ship and jettison your remains."
+                                </p>
+                                
+                                <p style="margin: 1rem 0; padding-left: 1rem; border-left: 2px solid var(--neon-blue);">
+                                    <strong>MOCHIS:</strong> "Perhaps. But you have followed a shadow for three systems. You have burned fuel, focused your wills, coordinated your hunt. You have, in essence, <strong>created a purpose</strong> where there was only empty space. You have woven a story of pursuit."
+                                </p>
+                                
+                                <p style="margin: 1rem 0; font-style: italic; color: #aaa;">[Silence from their end. A different quality of silence.]</p>
+                                
+                                <p style="margin: 1rem 0; padding-left: 1rem; border-left: 2px solid var(--neon-blue);">
+                                    <strong>MOCHIS:</strong> "I propose a trade. Not of units, but of <strong>perspective</strong>. You see a defenseless ship. I see three vessels of immense potential energy, currently configured as a <strong>question</strong>—'what can we take?' But a question can be rephrased."
+                                </p>
+                                
+                                <p style="margin: 1rem 0; padding-left: 1rem; border-left: 2px solid #ff6b6b; color: #ff6b6b;">
+                                    <strong>PIRATE LEADER:</strong> "Speak plainly, ghost, or we fire."
+                                </p>
+                                
+                                <p style="margin: 1rem 0; padding-left: 1rem; border-left: 2px solid var(--neon-blue);">
+                                    <strong>MOCHIS:</strong> "You possess the power to destroy. A simple, absolute answer to any encounter. But is destruction not the <strong>easiest, and therefore least interesting, answer</strong> the universe provides? It is the period that ends every sentence. I deal in <strong>semicolons</strong>."
+                                </p>
+                                
+                                <p style="margin: 1rem 0; font-style: italic; color: #aaa;">[Transmission of data-packet: <span class="glitch-text">//FREQUENCY 16.16//</span>]</p>
+                                
+                                <p style="margin: 1rem 0; padding-left: 1rem; border-left: 2px solid var(--neon-blue);">
+                                    <strong>MOCHIS:</strong> "Here is a different question, offered freely: <strong>What could you build, or find, or become, that would make the act of taking from me seem… small?</strong> Your guns are an answer. But what is the <strong>more magnificent question</strong> you could be asking with your existence?"
+                                </p>
+                            </div>
+                        </div>
+
+                        <div style="background-color: rgba(157, 78, 221, 0.15); padding: 1.5rem; border-radius: 5px; margin: 1.5rem 0; border-left: 4px solid var(--glow-purple);">
+                            <p style="color: var(--glow-purple); font-weight: bold; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-question-circle"></i> PHILOSOPHICAL QUERY DEPLOYED
+                            </p>
+                            <p style="font-size: 1.1rem; font-style: italic; text-align: center; padding: 1rem; background-color: rgba(0, 0, 0, 0.3); border-radius: 5px;">
+                                <strong>Is a being defined by the answers it forces upon the world, or by the quality of the questions it chooses to pursue?</strong>
+                            </p>
+                        </div>
+
+                        <div style="background-color: rgba(106, 13, 173, 0.1); padding: 1.5rem; border-radius: 5px; margin: 1.5rem 0; border: 1px solid rgba(106, 13, 173, 0.3);">
+                            <p style="color: var(--glow-purple); font-weight: bold; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-check-circle"></i> RESOLUTION
+                            </p>
+                            <p>The lead pirate ship does not fire. Its targeting lasers flicker, then disengage. For a long moment, there is only the nebula's whisper and the hum of idle drives.</p>
+                            
+                            <div style="background-color: rgba(0, 0, 0, 0.4); padding: 1rem; margin: 1rem 0; border-radius: 5px;">
+                                <p style="color: #6bff6b;">
+                                    <strong>NEW PIRATE VOICE:</strong> "You are a strange echo, Traveller. You speak like a Korvax but without their logic. You have no shield, yet you shield yourself with… words."
+                                </p>
+                            </div>
+                            
+                            <p style="margin: 1rem 0; padding-left: 1rem; border-left: 2px solid var(--neon-blue);">
+                                <strong>MOCHIS:</strong> "I shield myself with <strong>alternatives</strong>. The void has enough endings. I am merely a curator of possible beginnings."
+                            </p>
+                            
+                            <p>No tribute was given. No shots were fired. One by one, the pirate ships peel away, not in defeat, but in a kind of <strong>puzzled dispersion</strong>. They retreat into the nebula's folds, their singular, predatory question momentarily shattered by a different one.</p>
+                        </div>
+
+                        <div style="background-color: rgba(0, 212, 255, 0.1); padding: 1.5rem; border-radius: 5px; margin: 1.5rem 0; border: 1px solid rgba(0, 212, 255, 0.4);">
+                            <p style="color: var(--neon-blue); font-weight: bold; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-scroll"></i> LOG CONCLUSION
+                            </p>
+                            <p>They may return to piracy. The universe's pull towards simple answers is strong. But for a moment, in the silence between threats, I offered a <strong>cognitive glitch</strong>. A <span class="glitch-text">—kzzt—</span> in their programmed reality. I did not fight a battle of lasers, but a <strong>battle of frameworks</strong>.</p>
+                            <p>To wield a question is a different kind of power. It is the power to <strong>reconfigure a moment</strong>. It is the only weapon I carry, and the only one I need.</p>
+                            
+                            <div style="margin-top: 1.5rem; padding: 1rem; background-color: rgba(157, 78, 221, 0.2); border-radius: 5px; text-align: center;">
+                                <p style="color: var(--glow-purple); font-weight: bold;">DIRECTIVE REAFFIRMED:</p>
+                                <p style="font-size: 1.1rem; margin-top: 0.5rem;">The most powerful force is not destruction, but the introduction of a <strong>better question</strong>.</p>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255, 255, 255, 0.2);">
+                            <p style="color: var(--glow-purple); font-size: 1.2rem; font-style: italic;">🌌 THE MOCHIS | LOGGING: A PACIFIST'S VICTORY</p>
+                            <p class="glitch-text" style="margin-top: 0.5rem; font-size: 0.9rem;">//ENCOUNTER CATALOGUED UNDER: [PARABLES]//</p>
+                        </div>
+                    </div>
+                    <div class="log-tags">
+                        <span class="log-tag">Pirate Encounter</span>
+                        <span class="log-tag">Non-Violent</span>
+                        <span class="log-tag">Philosophical</span>
+                        <span class="log-tag">Vy'keen</span>
+                        <span class="log-tag">Nebula GX-77</span>
+                        <span class="log-tag" style="background-color: rgba(106, 13, 173, 0.3); color: var(--glow-purple);">Parable</span>
+                        <span class="log-tag" style="background-color: rgba(0, 212, 255, 0.3); color: var(--neon-blue);">Dialogue</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Chronicles of THE MOCHIS | Eternal Wanderer | Echo-Collector</p>
+        <p>All logs are recorded in real-time aboard <i>The Silent Question</i></p>
+        <p class="signature">May your stars never go dark.</p>
+        <p style="margin-top: 1rem; font-size: 0.8rem; color: #666;">//TRANSMISSION ENDS//</p>
+    </footer>
+
+    <script>
+        // Navegación entre secciones
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.section');
+            
+            // Función para cambiar de sección
+            function changeSection(sectionId) {
+                // Ocultar todas las secciones
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Mostrar la sección seleccionada
+                document.getElementById(sectionId).classList.add('active');
+                
+                // Actualizar enlaces activos
+                navLinks.forEach(link => {
+                    if (link.getAttribute('data-section') === sectionId) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+                
+                // Guardar la sección actual en localStorage
+                localStorage.setItem('currentSection', sectionId);
+            }
+            
+            // Configurar eventos de clic en los enlaces
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const sectionId = this.getAttribute('data-section');
+                    changeSection(sectionId);
+                    
+                    // Scroll suave al principio de la sección
+                    document.querySelector('.main-content').scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+            
+            // Cargar la sección guardada o mostrar la presentación por defecto
+            const savedSection = localStorage.getItem('currentSection');
+            if (savedSection && document.getElementById(savedSection)) {
+                changeSection(savedSection);
+            }
+            
+            // Efecto de parpadeo para texto glitch
+            const glitchElements = document.querySelectorAll('.glitch-text, .error-text');
+            setInterval(() => {
+                glitchElements.forEach(el => {
+                    if (Math.random() > 0.7) {
+                        el.style.opacity = Math.random() > 0.5 ? '0.7' : '1';
+                    }
+                });
+            }, 300);
+            
+            // Efecto de estrellas parpadeantes
+            const stars = document.querySelector('.stars');
+            setInterval(() => {
+                if (Math.random() > 0.8) {
+                    stars.style.opacity = Math.random() > 0.5 ? '0.6' : '0.8';
+                }
+            }, 1000);
+        });
+        
+        // Función para agregar nuevos logs (ejemplo)
+        function addNewLog(type, title, date, content, tags) {
+            const containerId = `${type}-logs-container`;
+            const container = document.getElementById(containerId);
+            
+            if (!container) {
+                console.error(`Contenedor con ID ${containerId} no encontrado`);
+                return;
+            }
+            
+            const newLog = document.createElement('div');
+            newLog.className = 'log-entry';
+            newLog.innerHTML = `
+                <div class="log-date">${date}</div>
+                <h3 class="log-title">${title}</h3>
+                <div class="log-content">
+                    ${content}
+                </div>
+                <div class="log-tags">
+                    ${tags.map(tag => `<span class="log-tag">${tag}</span>`).join('')}
+                </div>
+            `;
+            
+            // Insertar al principio del contenedor
+            container.insertBefore(newLog, container.firstChild);
+            
+            // Mostrar notificación
+            alert(`Nuevo log añadido a ${type}`);
+        }
+        
+        // Ejemplo de cómo usar la función para agregar logs
+        // Descomenta y modifica para probar:
+        /*
+        addNewLog(
+            'exploration',
+            'Nuevo Sistema Estelar Descubierto',
+            'Stardate: 2458150.1',
+            '<p>He descubierto un sistema estelar binario con un planeta en la zona habitable. Las lecturas iniciales muestran una atmósfera respirable y signos de actividad biológica.</p><p>El planeta tiene una luna con extrañas formaciones geológicas que parecen artificiales. Investigación en curso.</p>',
+            ['Nuevo Sistema', 'Zona Habitable', 'Posible Vida']
+        );
+        */
+    </script>
+</body>
+</html>

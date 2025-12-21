@@ -1,0 +1,97 @@
+/* LOGS HORIZONTALES - GitHub compatible */
+.log-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+.log-entry {
+    background: linear-gradient(135deg, rgba(20, 20, 40, 0.95), rgba(40, 20, 60, 0.95));
+    border-radius: 10px;
+    padding: 1.2rem 1.5rem;
+    border: 1px solid rgba(106, 13, 173, 0.4);
+    border-left: 4px solid #9d4edd;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    margin-bottom: 1.2rem;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.log-entry:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(157, 78, 221, 0.25);
+    border-color: #9d4edd;
+}
+
+.log-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    max-height: 200px;
+    padding-right: 8px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.log-content::-webkit-scrollbar {
+    width: 5px;
+}
+
+.log-content::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.log-content::-webkit-scrollbar-thumb {
+    background: #9d4edd;
+    border-radius: 10px;
+}
+
+.log-date {
+    color: #00d4ff;
+    font-size: 0.85rem;
+    margin-bottom: 0.8rem;
+    font-family: 'Courier New', monospace;
+    background-color: rgba(0, 212, 255, 0.1);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.log-title {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: #e6e6fa;
+    border-bottom: 1px solid rgba(157, 78, 221, 0.3);
+    padding-bottom: 0.5rem;
+}
+
+.log-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.log-tag {
+    background-color: rgba(106, 13, 173, 0.3);
+    color: #9d4edd;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+}
+
+/* Para GitHub Pages - Responsive */
+@media (min-width: 768px) {
+    .log-container {
+        grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    }
+}
