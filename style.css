@@ -94,4 +94,31 @@
     .log-container {
         grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
     }
+:root {
+    --golden: #ffd700;
+    --golden-glow: rgba(255, 215, 0, 0.3);
+}
+
+/* Efecto especial para logs dorados */
+.log-entry[data-type="golden"] {
+    border-left-color: var(--golden);
+    background: linear-gradient(135deg, rgba(20, 20, 40, 0.95), rgba(60, 50, 20, 0.9));
+}
+
+.log-entry[data-type="golden"]:hover {
+    box-shadow: 0 6px 18px var(--golden-glow);
+}
+
+/* Animación sutil para elementos dorados */
+@keyframes golden-pulse {
+    0% { opacity: 0.8; }
+    50% { opacity: 1; }
+    100% { opacity: 0.8; }
+}
+
+.golden-highlight {
+    color: var(--golden);
+    animation: golden-pulse 3s infinite;
+}
+
 }
