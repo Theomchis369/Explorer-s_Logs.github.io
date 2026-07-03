@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>THE MOCHIS | Chronicler of Transient Beauty</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -21,6 +22,8 @@
             --neon-blue: #00d4ff;
             --starlight: #e6e6fa;
             --text-glow: rgba(157, 78, 221, 0.7);
+            --golden: #ffd700;
+            --golden-glow: rgba(255, 215, 0, 0.3);
         }
 
         body {
@@ -34,26 +37,47 @@
                 radial-gradient(circle at 90% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 20%);
         }
 
-        /* Fondo de estrellas */
-        .stars {
+        /* ============================================
+           ESTRELLAS EN MOVIMIENTO (SCROLL EFFECT)
+           ============================================ */
+        #star-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
-            background-image: 
-                radial-gradient(2px 2px at 20px 30px, #eee, transparent),
-                radial-gradient(2px 2px at 40px 70px, #fff, transparent),
-                radial-gradient(1px 1px at 90px 40px, #ddd, transparent),
-                radial-gradient(1px 1px at 130px 80px, #fff, transparent),
-                radial-gradient(1.5px 1.5px at 160px 120px, #ddd, transparent);
-            background-repeat: repeat;
-            background-size: 200px 200px;
-            opacity: 0.7;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
         }
 
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            will-change: transform, opacity, top;
+            transition: none;
+        }
 
+        .star.twinkle {
+            animation: twinkle var(--duration, 3s) infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(0.8);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        /* ============================================
+           ESTILOS EXISTENTES (modificados para scroll)
+           ============================================ */
         .navbar {
             position: fixed;
             top: 0;
@@ -133,11 +157,12 @@
             background: linear-gradient(90deg, transparent, var(--glow-purple), transparent);
         }
 
-        /* Contenido principal */
         .main-content {
             max-width: 1200px;
             margin: 0 auto;
             padding: 6rem 2rem 2rem;
+            position: relative;
+            z-index: 1;
         }
 
         .section {
@@ -149,7 +174,6 @@
             display: block;
         }
 
-        /* Presentación principal */
         .hero {
             background: linear-gradient(135deg, rgba(15, 15, 31, 0.9), rgba(30, 15, 60, 0.8));
             border-radius: 12px;
@@ -259,7 +283,6 @@
             border-radius: 3px;
         }
 
-        /* Estilos de las secciones de logs */
         .section-title {
             font-size: 2rem;
             margin-bottom: 2rem;
@@ -275,45 +298,78 @@
             font-size: 1.5rem;
         }
 
+        /* LOGS HORIZONTALES */
         .log-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            width: 100%;
         }
 
         .log-entry {
-            background: linear-gradient(135deg, rgba(20, 20, 40, 0.8), rgba(40, 20, 60, 0.8));
+            background: linear-gradient(135deg, rgba(20, 20, 40, 0.95), rgba(40, 20, 60, 0.95));
             border-radius: 10px;
-            padding: 1.5rem;
-            border: 1px solid rgba(106, 13, 173, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            padding: 1.2rem 1.5rem;
+            border: 1px solid rgba(106, 13, 173, 0.4);
+            border-left: 4px solid #9d4edd;
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            width: 100%;
+            margin-bottom: 1.2rem;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
         .log-entry:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(106, 13, 173, 0.2);
-            border-color: var(--glow-purple);
-        }
-
-        .log-date {
-            color: var(--neon-blue);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-            font-family: monospace;
-        }
-
-        .log-title {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            color: var(--starlight);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(157, 78, 221, 0.25);
+            border-color: #9d4edd;
         }
 
         .log-content {
-            color: #ccc;
+            flex-grow: 1;
+            overflow-y: auto;
+            max-height: 200px;
+            padding-right: 8px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .log-content::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .log-content::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .log-content::-webkit-scrollbar-thumb {
+            background: #9d4edd;
+            border-radius: 10px;
+        }
+
+        .log-date {
+            color: #00d4ff;
+            font-size: 0.85rem;
+            margin-bottom: 0.8rem;
+            font-family: 'Courier New', monospace;
+            background-color: rgba(0, 212, 255, 0.1);
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .log-title {
+            font-size: 1.4rem;
             margin-bottom: 1rem;
+            color: #e6e6fa;
+            border-bottom: 1px solid rgba(157, 78, 221, 0.3);
+            padding-bottom: 0.5rem;
         }
 
         .log-tags {
@@ -321,17 +377,38 @@
             flex-wrap: wrap;
             gap: 0.5rem;
             margin-top: 1rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .log-tag {
             background-color: rgba(106, 13, 173, 0.3);
-            color: var(--glow-purple);
-            padding: 0.3rem 0.7rem;
-            border-radius: 20px;
+            color: #9d4edd;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
             font-size: 0.8rem;
         }
 
-        /* Estilo para la nave espacial */
+        .log-entry[data-type="golden"] {
+            border-left-color: var(--golden);
+            background: linear-gradient(135deg, rgba(20, 20, 40, 0.95), rgba(60, 50, 20, 0.9));
+        }
+
+        .log-entry[data-type="golden"]:hover {
+            box-shadow: 0 6px 18px var(--golden-glow);
+        }
+
+        @keyframes golden-pulse {
+            0% { opacity: 0.8; }
+            50% { opacity: 1; }
+            100% { opacity: 0.8; }
+        }
+
+        .golden-highlight {
+            color: var(--golden);
+            animation: golden-pulse 3s infinite;
+        }
+
         .ship-container {
             display: flex;
             flex-direction: column;
@@ -378,7 +455,6 @@
             border-left: 3px solid var(--neon-blue);
         }
 
-        /* Instrucciones para añadir logs */
         .instructions {
             background-color: rgba(15, 15, 31, 0.8);
             border-radius: 10px;
@@ -393,32 +469,6 @@
             margin-bottom: 1rem;
         }
 
-        .code-block {
-            background-color: rgba(0, 0, 0, 0.7);
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin: 1rem 0;
-            font-family: 'Courier New', monospace;
-            overflow-x: auto;
-            border: 1px solid rgba(106, 13, 173, 0.3);
-        }
-
-        .code-comment {
-            color: #6a9955;
-        }
-
-        .code-keyword {
-            color: #569cd6;
-        }
-
-        .code-string {
-            color: #ce9178;
-        }
-
-        .code-function {
-            color: #dcdcaa;
-        }
-
         .footer {
             text-align: center;
             padding: 2rem;
@@ -426,6 +476,8 @@
             border-top: 1px solid rgba(106, 13, 173, 0.3);
             color: #888;
             font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
         }
 
         .signature {
@@ -435,7 +487,6 @@
             font-style: italic;
         }
 
-        /* Efectos de animación */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -451,7 +502,12 @@
             animation: pulse 2s infinite;
         }
 
-        /* Responsive */
+        @media (min-width: 768px) {
+            .log-container {
+                grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+            }
+        }
+
         @media (max-width: 768px) {
             .nav-container {
                 flex-direction: column;
@@ -474,11 +530,37 @@
                 padding-top: 8rem;
             }
         }
+
+        @media (max-width: 480px) {
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+
+            .nav-link {
+                font-size: 0.8rem;
+                padding: 0.3rem 0.6rem;
+            }
+
+            .hero-title {
+                font-size: 1.5rem;
+            }
+
+            .log-entry {
+                min-height: 200px;
+                padding: 1rem;
+            }
+
+            .log-title {
+                font-size: 1.1rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Fondo de estrellas -->
-    <div class="stars"></div>
+    <!-- ESTRELLAS EN MOVIMIENTO (SCROLL EFFECT) -->
+    <div id="star-container"></div>
 
     <!-- Navegación -->
     <nav class="navbar">
@@ -553,7 +635,6 @@
                 Exploration Logs
             </h2>
             <div class="log-container" id="exploration-logs-container">
-                <!-- Los logs se cargarán aquí dinámicamente -->
                 <div class="log-entry">
                     <div class="log-date">Stardate: 2458197.3 | Singularity Observation</div>
                     <h3 class="log-title">Event Horizon Contemplation</h3>
@@ -634,6 +715,7 @@
                         <span class="log-tag">Final Entry</span>
                     </div>
                 </div>
+            </div>
         </section>
 
         <!-- Sección de Fauna Logs -->
@@ -643,8 +725,7 @@
                 Fauna Logs
             </h2>
             <div class="log-container" id="fauna-logs-container">
-                <!-- Los logs de fauna se cargarán aquí dinámicamente -->
-                <div class="log-entry">
+                <div class="log-entry" data-type="golden">
                     <div class="log-date">Stardate: 2458182.6 | FLORA LOG: AURUM SOLEUS</div>
                     <h3 class="log-title">AURUM SOLEUS | The Golden Sanctuary</h3>
                     <div class="log-content">
@@ -844,7 +925,6 @@
                 Adventure Logs
             </h2>
             <div class="log-container" id="adventure-logs-container">
-                <!-- Los logs de aventuras se cargarán aquí dinámicamente -->
                 <div class="log-entry">
                     <div class="log-date">Stardate: 2458174.2 | ENCOUNTER: PARABLE</div>
                     <h3 class="log-title">At the Veil's Edge: A Pacifist's Victory</h3>
@@ -993,22 +1073,121 @@
     </footer>
 
     <script>
-        // Navegación entre secciones
+        // ============================================
+        // 1. LENIS - SCROLL SUAVE
+        // ============================================
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smooth: true,
+            wheelMultiplier: 1,
+            touchMultiplier: 1.5
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // ============================================
+        // 2. SISTEMA DE ESTRELLAS EN MOVIMIENTO
+        // ============================================
+        (function() {
+            const container = document.getElementById('star-container');
+            if (!container) return;
+
+            const CONFIG = {
+                starCount: 150,
+                staticChance: 0.25,
+                minSize: 1,
+                maxSize: 3.5,
+                baseSpeed: 0.04,
+                twinkleDuration: [2, 5]
+            };
+
+            const stars = [];
+
+            for (let i = 0; i < CONFIG.starCount; i++) {
+                const isStatic = Math.random() < CONFIG.staticChance;
+                const size = isStatic ? 
+                    1 + Math.random() * 1 : 
+                    1 + Math.random() * CONFIG.maxSize;
+                
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                
+                star.style.left = x + '%';
+                star.style.top = y + '%';
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                
+                const duration = CONFIG.twinkleDuration[0] + 
+                    Math.random() * (CONFIG.twinkleDuration[1] - CONFIG.twinkleDuration[0]);
+                star.style.setProperty('--duration', duration + 's');
+                star.style.animationDelay = (Math.random() * 5) + 's';
+                
+                if (!isStatic) {
+                    star.classList.add('twinkle');
+                }
+                
+                container.appendChild(star);
+                
+                stars.push({
+                    el: star,
+                    x: x,
+                    initialY: y,
+                    speed: isStatic ? 0 : 0.2 + Math.random() * 0.6,
+                    isStatic: isStatic,
+                    size: size
+                });
+            }
+
+            let lastScroll = 0;
+
+            lenis.on('scroll', ({ scroll, velocity }) => {
+                const stretch = Math.max(1, Math.min(1 + Math.abs(velocity) * 0.12, 3.5));
+                
+                const scrollDelta = Math.abs(scroll - lastScroll);
+                if (scrollDelta < 0.1 && velocity < 0.1) return;
+                
+                lastScroll = scroll;
+                
+                for (let i = 0; i < stars.length; i++) {
+                    const star = stars[i];
+                    
+                    if (star.isStatic) {
+                        star.el.style.transform = 'scaleY(1)';
+                        continue;
+                    }
+                    
+                    let pos = (star.initialY - (scroll * star.speed * CONFIG.baseSpeed)) % 100;
+                    if (pos < 0) pos += 100;
+                    
+                    star.el.style.top = pos + '%';
+                    star.el.style.transform = `scaleY(${stretch})`;
+                }
+            });
+
+        })();
+
+        // ============================================
+        // 3. NAVEGACIÓN ENTRE SECCIONES
+        // ============================================
         document.addEventListener('DOMContentLoaded', function() {
             const navLinks = document.querySelectorAll('.nav-link');
             const sections = document.querySelectorAll('.section');
             
-            // Función para cambiar de sección
             function changeSection(sectionId) {
-                // Ocultar todas las secciones
                 sections.forEach(section => {
                     section.classList.remove('active');
                 });
                 
-                // Mostrar la sección seleccionada
                 document.getElementById(sectionId).classList.add('active');
                 
-                // Actualizar enlaces activos
                 navLinks.forEach(link => {
                     if (link.getAttribute('data-section') === sectionId) {
                         link.classList.add('active');
@@ -1017,23 +1196,19 @@
                     }
                 });
                 
-                // Guardar la sección actual en localStorage
                 localStorage.setItem('currentSection', sectionId);
             }
             
-            // Configurar eventos de clic en los enlaces
             navLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     const sectionId = this.getAttribute('data-section');
                     changeSection(sectionId);
                     
-                    // Scroll suave al principio de la sección
                     document.querySelector('.main-content').scrollIntoView({ behavior: 'smooth' });
                 });
             });
             
-            // Cargar la sección guardada o mostrar la presentación por defecto
             const savedSection = localStorage.getItem('currentSection');
             if (savedSection && document.getElementById(savedSection)) {
                 changeSection(savedSection);
@@ -1048,58 +1223,7 @@
                     }
                 });
             }, 300);
-            
-            // Efecto de estrellas parpadeantes
-            const stars = document.querySelector('.stars');
-            setInterval(() => {
-                if (Math.random() > 0.8) {
-                    stars.style.opacity = Math.random() > 0.5 ? '0.6' : '0.8';
-                }
-            }, 1000);
         });
-        
-        // Función para agregar nuevos logs (ejemplo)
-        function addNewLog(type, title, date, content, tags) {
-            const containerId = `${type}-logs-container`;
-            const container = document.getElementById(containerId);
-            
-            if (!container) {
-                console.error(`Contenedor con ID ${containerId} no encontrado`);
-                return;
-            }
-            
-            const newLog = document.createElement('div');
-            newLog.className = 'log-entry';
-            newLog.innerHTML = `
-                <div class="log-date">${date}</div>
-                <h3 class="log-title">${title}</h3>
-                <div class="log-content">
-                    ${content}
-                </div>
-                <div class="log-tags">
-                    ${tags.map(tag => `<span class="log-tag">${tag}</span>`).join('')}
-                </div>
-            `;
-            
-            // Insertar al principio del contenedor
-            container.insertBefore(newLog, container.firstChild);
-            
-            // Mostrar notificación
-            alert(`Nuevo log añadido a ${type}`);
-        }
-        
-        // Ejemplo de cómo usar la función para agregar logs
-        // Descomenta y modifica para probar:
-        /*
-        addNewLog(
-            'exploration',
-            'Nuevo Sistema Estelar Descubierto',
-            'Stardate: 2458150.1',
-            '<p>He descubierto un sistema estelar binario con un planeta en la zona habitable. Las lecturas iniciales muestran una atmósfera respirable y signos de actividad biológica.</p><p>El planeta tiene una luna con extrañas formaciones geológicas que parecen artificiales. Investigación en curso.</p>',
-            ['Nuevo Sistema', 'Zona Habitable', 'Posible Vida']
-        );
-        */
     </script>
 </body>
-
 </html>
